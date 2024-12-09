@@ -1,6 +1,6 @@
 import ArticulosSinWP from "@/components/ArticulosSinWP";
 import LatestVideos from "@/components/LatestVideos";
-import SocialNav from "@/components/SocialNav"; // Importa el componente SocialNav
+import SocialNav from "@/components/SocialNav"; // Importamos SocialNav
 import Image from "next/image";
 
 
@@ -140,6 +140,10 @@ export default async function Home() {
         {/* Sidebar */}
         <Sidebar />
       </div>
+
+      {/* SocialNav */}
+      <SocialNav />
+
     </>
   );
 }
