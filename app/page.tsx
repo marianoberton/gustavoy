@@ -120,9 +120,7 @@ export default async function Home() {
           </div>
           <div className="w-full md:w-2/3">
             <h1 className="text-4xl font-bold mb-2">Gustavo Yarroch</h1>
-            <h2 className="text-xl text-gray-600 mb-4">
-              El periodista deportivo que marca la diferencia
-            </h2>
+           
             <p className="text-gray-700 leading-relaxed">
               Soy periodista con más de 20 años de experiencia cubriendo los eventos deportivos más importantes, desde los mundiales hasta los partidos que hacen historia.
             </p>
