@@ -1,41 +1,20 @@
-import ArticulosSinWP from "@/components/ArticulosSinWP";
-import LatestVideos from "@/components/LatestVideos";
-import SocialNav from "@/components/SocialNav"; // Importa el componente SocialNav
-import Image from "next/image";
+import type { Metadata } from "next";
 
-
-const Sidebar = () => {
-  return (
-    <aside className="w-full lg:w-1/4 bg-white shadow-md rounded-lg p-4">
-      <h3 className="text-lg font-bold mb-4">Últimos Tweets</h3>
-      <div className="overflow-hidden">
-        <a
-          className="twitter-timeline"
-          href="https://twitter.com/GustavoYarroch?ref_src=twsrc%5Etfw"
-          data-height="2000" // Aumenta la altura aquí
-        >
-          Tweets by GustavoYarroch
-        </a>
-      </div>
-      <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
-    </aside>
-  );
+type Article = {
+  id: number;
+  title: string;
+  excerpt: string;
+  imageUrl: string;
+  articleUrl: string;
 };
 
+export const metadata: Metadata = {
+  title: "Artículos - Gustavo Yarroch",
+  description: "Una selección de los mejores artículos deportivos.",
+};
 
-export default async function Home() {
-  // Datos mock para los videos
-  const mockVideos = [
-    { id: 1, title: "River Plate vs Boca Juniors - Highlights", url: "https://www.youtube.com/watch?v=udqh11_OSvo" },
-    { id: 2, title: "Selección Argentina - Camino al Mundial", url: "https://www.youtube.com/watch?v=fwgfxPlZtEU" },
-    { id: 3, title: "Entrevista con Lionel Messi", url: "https://www.youtube.com/watch?v=h-4Tq27lGlA" },
-    { id: 4, title: "Análisis táctico: River Plate", url: "https://www.youtube.com/watch?v=0qvFJgv1x5k" },
-    { id: 5, title: "El fútbol en el siglo XXI", url: "https://www.youtube.com/watch?v=zq1xJyEml_A" },
-    { id: 6, title: "Copa del Mundo Qatar 2022 - Resumen", url: "https://www.youtube.com/watch?v=88JK1yjlPnU" },
-  ];
-
-  // Datos mock para los artículos
-  const mockArticles = [
+export default function ArticulosPage() {
+  const mockArticles: Article[] = [
     {
       id: 1,
       title:
@@ -105,41 +84,45 @@ export default async function Home() {
   ];
 
   return (
-    <>
-      {/* Hero Section */}
-      <section className="relative bg-gray-100 py-12">
-        <div className="container mx-auto flex flex-col md:flex-row items-center gap-8 px-4">
-          <div className="w-full md:w-1/3 text-center md:text-left">
-            <Image
-              src="/yarroch.jpg"
-              alt="Foto de Gustavo Yarroch"
-              width={300}
-              height={300}
-              className="rounded-full shadow-md mx-auto md:mx-0"
-            />
-          </div>
-          <div className="w-full md:w-2/3">
-            <h1 className="text-4xl font-bold mb-2">Gustavo Yarroch</h1>
-            <h2 className="text-xl text-gray-600 mb-4">
-              El periodista deportivo que marca la diferencia
-            </h2>
-            <p className="text-gray-700 leading-relaxed">
-              Soy periodista con más de 20 años de experiencia cubriendo los eventos deportivos más importantes, desde los mundiales hasta los partidos que hacen historia.
-            </p>
-          </div>
+    <section>
+      <header className="bg-gray-900 text-white py-12">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl font-bold">Todos los Artículos</h1>
+          <p className="text-lg mt-2">
+            Una selección de los mejores artículos deportivos analizados y recomendados.
+          </p>
         </div>
-      </section>
-
-      {/* Main Content + Sidebar */}
-      <div className="container mx-auto flex flex-col lg:flex-row gap-8 px-4 py-8">
-        {/* Main Content */}
-        <div className="flex-1 space-y-8">
-          <LatestVideos videos={mockVideos} />
-          <ArticulosSinWP articles={mockArticles} />
+      </header>
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {mockArticles.map((article) => (
+            <div
+              key={article.id}
+              className="bg-white border rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            >
+              <img
+                src={article.imageUrl}
+                alt={article.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  {article.title}
+                </h3>
+                <p className="text-gray-600 mb-4">{article.excerpt}</p>
+                <a
+                  href={article.articleUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  Leer más
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
-        {/* Sidebar */}
-        <Sidebar />
       </div>
-    </>
+    </section>
   );
 }
