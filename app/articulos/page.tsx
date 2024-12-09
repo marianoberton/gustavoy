@@ -87,7 +87,7 @@ export default function ArticulosPage() {
     <section>
       <header className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold">Todos los Artículos</h1>
+          <h1 className="text-4xl font-bold">Todos los Artículos de Infobae</h1>
           <p className="text-lg mt-2">
             Una selección de los mejores artículos deportivos analizados y recomendados.
           </p>
