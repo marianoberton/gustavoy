@@ -39,7 +39,7 @@ const Banner = () => {
           <a
             className="twitter-timeline"
             href="https://twitter.com/GustavoYarroch?ref_src=twsrc%5Etfw"
-            data-height="2800"
+            data-height="4000"
           >
             Tweets by GustavoYarroch
           </a>
