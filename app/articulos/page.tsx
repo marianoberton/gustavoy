@@ -21,7 +21,7 @@ export default function ArticulosPage() {
   useEffect(() => {
     fetch("/articles_with_ids.json")
       .then((response) => response.json())
-      .then((data) => setArticles(data.reverse())) // Ordenar los artículos más recientes primero
+      .then((data) => setArticles(data)) // Ordenar los artículos más recientes primero
       .catch((error) => console.error("Error cargando los artículos:", error));
   }, []);
 

@@ -1,15 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import type { Video } from "./page";
 
-export type Video = {
-  id: number;
-  title: string;
-  url: string;
-  thumbnail?: string | null;
-};
-
-// Helper function para extraer el ID del video de la URL de YouTube
+// Helper para extraer el ID del video de la URL de YouTube
 function getYouTubeID(url: string): string {
   const regex =
     /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)|youtu\.be\/([^?&]+)/;
@@ -17,9 +11,11 @@ function getYouTubeID(url: string): string {
   return match?.[1] || match?.[2] || "";
 }
 
+// Componente que muestra la miniatura y, al hacer clic, carga el iframe
 const VideoCard = ({ video }: { video: Video }) => {
   const [play, setPlay] = useState(false);
   const videoId = getYouTubeID(video.url);
+  // Usa la miniatura proporcionada o la URL estándar de YouTube
   const thumbnailUrl =
     video.thumbnail || `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
@@ -72,24 +68,32 @@ const VideoCard = ({ video }: { video: Video }) => {
   );
 };
 
-export default function LatestVideos({ videos }: { videos: Video[] }) {
-  // Se toman solo los 6 videos más recientes (suponiendo que el array ya está ordenado de más reciente a menos)
-  const latestVideos = videos.slice(0, 6);
+export default function VideosList({ videos }: { videos: Video[] }) {
+  // Mostrar inicialmente 9 videos; se agregan de 9 en 9
+  const [visibleCount, setVisibleCount] = useState(9);
+  const visibleVideos = videos.slice(0, visibleCount);
+
+  const handleShowMore = () => {
+    setVisibleCount((prev) => prev + 9);
+  };
 
   return (
-    <section className="container mx-auto px-4 py-16">
-      <h2 className="text-3xl font-bold mb-8 text-gray-800">Últimos Videos</h2>
-      {latestVideos.length > 0 ? (
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {latestVideos.map((video) => (
-            <li key={video.id}>
-              <VideoCard video={video} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-gray-700">No hay videos disponibles.</p>
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {visibleVideos.map((video) => (
+          <VideoCard key={video.id} video={video} />
+        ))}
+      </div>
+      {visibleCount < videos.length && (
+        <div className="flex justify-center mt-6">
+          <button
+            onClick={handleShowMore}
+            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors duration-200"
+          >
+            Ver más
+          </button>
+        </div>
       )}
-    </section>
+    </>
   );
 }
