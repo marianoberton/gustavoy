@@ -55,15 +55,10 @@ export default async function Home() {
   let videos = JSON.parse(videosJson);
 
   // Asigna un ID secuencial en caso de que no venga en el JSON
-  videos = videos.map((video: any, index: number) => {
-    // Extraemos la propiedad id para no sobreescribirla al hacer el spread
-    const { id, ...rest } = video;
-    return {
-      id: id || index + 1,
-      ...rest,
-    };
-  });
-  
+  videos = videos.map((video: any, index: number) => ({
+    id: video.id || index + 1,
+    ...video,
+  }));
 
   // Leer el archivo articles_with_ids.json desde la carpeta public
   const articlesFilePath = path.join(process.cwd(), "public", "articles_with_ids.json");

@@ -23,10 +23,16 @@ export default async function VideosPage() {
   let videos: Video[] = JSON.parse(jsonData);
 
   // Si el JSON no incluye IDs, se asignan de forma secuencial
-  videos = videos.map((video, index) => ({
-    id: index + 1,
-    ...video,
-  }));
+  videos = videos.map((video: any, index: number) => {
+    // Extraemos la propiedad id para no sobreescribirla al hacer el spread
+    const { id, ...rest } = video;
+    return {
+      id: id || index + 1,
+      ...rest,
+    };
+  });
+  
+  
 
   return (
     <div className="container mx-auto flex flex-col lg:flex-row gap-8 px-4 py-8">
