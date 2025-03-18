@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { FiCalendar } from "react-icons/fi";
+import { FiCalendar, FiClock } from "react-icons/fi";
 import Link from "next/link";
-import { AnalogClock } from "@hoseinh/react-analog-clock";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,31 +43,14 @@ const Navbar = () => {
   // Capitalizar primera letra de la fecha
   const capitalizedDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
 
-  // Componente del reloj estilizado
+  // Componente del reloj estilizado (solo digital)
   const ClockDisplay = () => (
-    <div className="flex items-center bg-gray-800 rounded-lg p-2 shadow-inner gap-3">
-      {/* Reloj analógico */}
-      <div className="relative">
-        <AnalogClock 
-          size="60px"
-          showSecondHand={true}
-          showBorder={true}
-          showHandBase={true}
-          smooth={true}
-          backgroundColor="#111827"
-          borderColor="#4B5563"
-          handColor={{ hour: "#94A3B8", minute: "#38BDF8", second: "#f43f5e" }}
-          handLength={{ hour: "20px", minute: "26px", second: "26px" }}
-          handThickness={{ hour: "2.5px", minute: "2px", second: "1px" }}
-          numbersType="dots"
-          whiteNumbers={true}
-        />
-      </div>
-      
+    <div className="bg-gray-800 rounded-lg p-2 shadow-inner">
       {/* Información digital */}
       <div className="flex flex-col">
-        <div className="text-emerald-400 font-mono text-base font-medium">
-          {formattedTime}
+        <div className="flex items-center text-emerald-400 font-mono text-base font-medium">
+          <FiClock className="mr-1" />
+          <span>{formattedTime}</span>
         </div>
         <div className="flex items-center text-gray-400 text-xs mt-1">
           <FiCalendar className="mr-1 text-gray-500" />
@@ -78,27 +60,12 @@ const Navbar = () => {
     </div>
   );
 
-  // Versión compacta del reloj para móviles
+  // Versión compacta del reloj para móviles (solo digital)
   const CompactClockDisplay = () => (
-    <div className="flex flex-col items-center bg-gray-800 rounded-lg p-2 shadow-inner">
-      <div className="mb-2">
-        <AnalogClock 
-          size="70px"
-          showSecondHand={true}
-          showBorder={true}
-          showHandBase={true}
-          smooth={true}
-          backgroundColor="#111827"
-          borderColor="#4B5563"
-          handColor={{ hour: "#94A3B8", minute: "#38BDF8", second: "#f43f5e" }}
-          handLength={{ hour: "25px", minute: "32px", second: "32px" }}
-          handThickness={{ hour: "2.5px", minute: "2px", second: "1px" }}
-          numbersType="dots"
-          whiteNumbers={true}
-        />
-      </div>
-      <div className="text-emerald-400 font-mono text-base font-medium mt-1">
-        {formattedTime}
+    <div className="bg-gray-800 rounded-lg p-2 shadow-inner">
+      <div className="flex items-center text-emerald-400 font-mono text-base font-medium">
+        <FiClock className="mr-1" />
+        <span>{formattedTime}</span>
       </div>
       <div className="flex items-center text-gray-400 text-xs mt-1">
         <FiCalendar className="mr-1 text-gray-500" />
