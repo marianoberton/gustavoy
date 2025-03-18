@@ -93,8 +93,9 @@ export default async function Home() {
       <div className="container mx-auto flex flex-col lg:flex-row gap-8 px-4 py-8">
         {/* Main Content */}
         <div className="flex-1 space-y-8">
-          <LatestVideos videos={videos} />
+          
           <ArticulosSinWP articles={articles} />
+          <LatestVideos videos={videos} />
         </div>
         {/* Sidebar */}
         <Sidebar />

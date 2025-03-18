@@ -9,6 +9,7 @@ type Article = {
     src: string;
     alt: string;
   };
+  fecha?: string; // Campo opcional para la fecha
 };
 
 // Helper para construir la URL absoluta
@@ -26,7 +27,7 @@ export default function ArticulosSinWP({ articles }: { articles: Article[] }) {
 
   return (
     <section className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold mb-8 text-gray-800">Artículos Infobae</h2>
+      <h2 className="text-3xl font-bold mb-8 text-gray-800">Últimos Artículos</h2>
       {newestArticles.length > 0 ? (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {newestArticles.map((article) => {
@@ -48,14 +49,21 @@ export default function ArticulosSinWP({ articles }: { articles: Article[] }) {
                     {article.title}
                   </h3>
                   <p className="text-gray-600 mb-4">{article.description}</p>
-                  <a
-                    href={absoluteLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
-                  >
-                    Leer más
-                  </a>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href={absoluteLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Leer más
+                    </a>
+                    {article.fecha && (
+                      <span className="text-sm text-gray-600">
+                        {article.fecha}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </li>
             );

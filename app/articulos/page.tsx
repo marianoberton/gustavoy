@@ -12,6 +12,7 @@ type Article = {
     src: string;
     alt: string;
   };
+  fecha?: string; // Campo opcional para la fecha
 };
 
 export default function ArticulosPage() {
@@ -34,7 +35,7 @@ export default function ArticulosPage() {
       <div className="flex-1">
         <header className="bg-gray-900 text-white py-12 mb-8">
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl font-bold">Todos los Artículos</h1>
+            <h1 className="text-4xl font-bold">Todos los Artículos de Infobae</h1>
             <p className="text-lg mt-2">
               Una selección de los mejores artículos deportivos analizados y recomendados.
             </p>
@@ -56,14 +57,21 @@ export default function ArticulosPage() {
                   {article.title}
                 </h3>
                 <p className="text-gray-600 mb-4">{article.description}</p>
-                <a
-                  href={article.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
-                >
-                  Leer más
-                </a>
+                <div className="flex justify-between items-center">
+                  <a
+                    href={article.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Leer más
+                  </a>
+                  {article.fecha && (
+                    <span className="text-sm text-gray-600">
+                      {article.fecha}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           ))}
