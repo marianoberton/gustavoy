@@ -60,23 +60,9 @@ const Navbar = () => {
     </div>
   );
 
-  // Versión compacta del reloj para móviles (solo digital)
-  const CompactClockDisplay = () => (
-    <div className="bg-gray-800 rounded-lg p-2 shadow-inner">
-      <div className="flex items-center text-emerald-400 font-mono text-base font-medium">
-        <FiClock className="mr-1" />
-        <span>{formattedTime}</span>
-      </div>
-      <div className="flex items-center text-gray-400 text-xs mt-1">
-        <FiCalendar className="mr-1 text-gray-500" />
-        <span className="tracking-tight">{capitalizedDate.split(',')[0]}</span>
-      </div>
-    </div>
-  );
-
   return (
     <header className="sticky top-0 z-50 bg-gray-900 text-white py-4 shadow-md">
-      <div className="container mx-auto px-4 grid grid-cols-3 items-center">
+      <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo - Izquierda */}
         <div className="flex items-center">
           <Link href="/" className="font-bold text-xl">
@@ -85,7 +71,7 @@ const Navbar = () => {
         </div>
 
         {/* Menú en Desktop - Centro */}
-        <nav className="hidden lg:flex justify-center items-center space-x-8">
+        <nav className="hidden lg:flex items-center space-x-8">
           <Link href="/sobre-mi" className="text-base hover:text-emerald-300 transition-colors">
             Sobre mí
           </Link>
@@ -97,22 +83,17 @@ const Navbar = () => {
           </Link>
         </nav>
 
-        {/* Contenedor derecho (reloj en desktop y icono hamburguesa en mobile) */}
-        <div className="flex justify-end items-center">
-          {/* Reloj en Desktop y Tablet */}
-          <div className="hidden md:block">
+        {/* Sección derecha (reloj en desktop o hamburguesa en mobile) */}
+        <div className="flex items-center">
+          {/* Reloj solo en Desktop */}
+          <div className="hidden lg:block">
             <ClockDisplay />
-          </div>
-          
-          {/* Reloj compacto en móvil (sm) */}
-          <div className="hidden sm:block md:hidden">
-            <CompactClockDisplay />
           </div>
 
           {/* Icono de Hamburguesa en Mobile */}
           <button
             onClick={toggleMenu}
-            className="lg:hidden text-white focus:outline-none ml-4"
+            className="lg:hidden text-white focus:outline-none"
           >
             {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
@@ -146,9 +127,6 @@ const Navbar = () => {
         >
           Videos
         </Link>
-        <div className="flex justify-center pt-3 pb-1">
-          <CompactClockDisplay />
-        </div>
       </div>
     </header>
   );
