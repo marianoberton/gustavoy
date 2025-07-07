@@ -5,20 +5,18 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { FiCalendar, FiClock } from "react-icons/fi";
 import Link from "next/link";
 
-const INITIAL_DATE = new Date(2025, 4, 31, 11, 0, 0); // 31 de mayo de 2025, 11:00:00
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentTime, setCurrentTime] = useState<Date>(INITIAL_DATE);
+  const [currentTime, setCurrentTime] = useState<Date>(new Date());
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
-  // Avanzar el reloj cada segundo desde la fecha inicial
+  // Actualizar el reloj cada segundo con la fecha actual
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime((prev) => new Date(prev.getTime() + 1000));
+      setCurrentTime(new Date());
     }, 1000);
     return () => clearInterval(timer);
   }, []);

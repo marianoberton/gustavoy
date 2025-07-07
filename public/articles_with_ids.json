@@ -1,5 +1,50 @@
 [
-        {
+    
+    {
+        "title": "River acelera en el mercado de pases: cuánto pagaría por Maxi Salas y el nombre que quiere cerrar antes del viernes",
+        "description": "El Millonario busca reforzar el plantel que dirige Marcelo Gallardo con cuatro incorporaciones",
+        "url": "https://www.infobae.com/deportes/2025/06/23/river-acelera-en-el-mercado-de-pases-cuanto-pagaria-por-maxi-salas-y-el-nombre-que-quiere-cerrar-antes-del-viernes/",
+        "image": {
+            "src": "https://www.infobae.com/resizer/v2/Z3V4IJZYGJG6BMKO5Q6BVQEQSE.com?auth=e1651c1b780450de0b8e045980562686c452b43d40ad290590293ca11c220f49&smart=true&width=350&height=197&quality=85",
+            "alt": "River acelera en el mercado"
+        },
+        "fecha": "23/06/2025",
+        "id": 2
+    },
+    {
+        "title": "El plan de Gallardo para reforzar un puesto clave en River: los cuatro futbolistas que tiene en carpeta",
+        "description": "El Muñeco quiere incorporar un jugador en un lugar sensible de la cancha",
+        "url": "https://www.infobae.com/deportes/2025/06/09/el-plan-de-gallardo-para-reforzar-un-puesto-clave-en-river-los-cuatro-futbolistas-que-tiene-en-carpeta/",
+        "image": {
+            "src": "https://www.infobae.com/resizer/v2/A2SZDRQCLBFWHPBRWCLZOHDWPA.jpg?auth=7c32c05260d590fa21f45f1646fcf3b1aeefed27b3edcccf17c4bf414fd1197d&smart=true&width=350&height=197&quality=85",
+            "alt": "El plan de Gallardo para"
+        },
+        "fecha": "09/06/2025",
+        "id": 3
+    },
+    {
+        "title": "Qué hay detrás de los rumores del llamado de River Plate a Cristiano Ronaldo para el Mundial de Clubes",
+        "description": "Las declaraciones de CR7 plantearon la duda en torno al equipo de Gallardo, que debutará el martes 17 contra Urawa Reds por el Grupo E, zona compartida con Inter de Milán y Monterrey",
+        "url": "https://www.infobae.com/deportes/2025/06/08/que-hay-detras-de-los-rumores-del-llamado-de-river-plate-a-cristiano-ronaldo-para-el-mundial-de-clubes/",
+        "image": {
+            "src": "https://www.infobae.com/resizer/v2/XTF46MBIHFFJRONLGBRIYXA3TY.jpg?auth=df4d2667f03dade839fbd8925a6814521f2ebd9f01658ea4d9356d185d2d3013&smart=true&width=350&height=197&quality=85",
+            "alt": "Qué hay detrás de los"
+        },
+        "fecha": "08/06/2025",
+        "id": 4
+    },
+    {
+        "title": "Franco Mastantuono será jugador del Real Madrid: cuáles son los últimos detalles que negocia con River Plate",
+        "description": "El conjunto español le ganó la pulseada al PSG. El Millonario intenta retenerlo hasta diciembre, mientras que el Merengue pretende llevárselo post Mundial de Clubes",
+        "url": "https://www.infobae.com/deportes/2025/06/05/franco-mastantuono-sera-jugador-del-real-madrid-cuales-son-los-ultimos-detalles-que-negocia-con-river-plate/",
+        "image": {
+            "src": "https://www.infobae.com/resizer/v2/BG3G376E7JGHFHZNHU2DJM4V4M.jpg?auth=8233264548c6a94d06ef6bc38249b639dcd0f0aff80f5148ef353fa343b825e8&smart=true&width=350&height=197&quality=85",
+            "alt": "Franco Mastantuono será jugador del"
+        },
+        "fecha": "05/06/2025",
+        "id": 5
+    },
+    {
         "title": "PSG, el primer gigante europeo que acelera por Mastantuono: la postura de River y las alternativas de operación",
         "description": "El PSG tiene en la mira a la joya riverplatense de 17 años y prepara su primer movimiento concreto",
         "url": "https://www.infobae.com/deportes/2025/05/29/psg-el-primer-gigante-europeo-que-acelera-por-mastantuono-la-postura-de-river-y-las-alternativas-de-operacion/",
