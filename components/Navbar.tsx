@@ -5,7 +5,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { FiCalendar, FiClock } from "react-icons/fi";
 import Link from "next/link";
 
-const INITIAL_DATE = new Date(2024, 3, 28, 11, 0, 0); // 28 de abril de 2024, 11:00:00
+const INITIAL_DATE = new Date(2025, 4, 31, 11, 0, 0); // 31 de mayo de 2025, 11:00:00
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
