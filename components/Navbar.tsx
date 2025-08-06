@@ -7,16 +7,16 @@ import Link from "next/link";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentTime, setCurrentTime] = useState<Date>(new Date(2025, 6, 31, 11, 0, 0)); // 31 de julio de 2025, 11:00:00
+  const [currentTime, setCurrentTime] = useState<Date>(new Date());
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
-  // Avanzar el reloj cada segundo desde la fecha inicial
+  // Actualizar el reloj cada segundo con la fecha actual
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime((prev) => new Date(prev.getTime() + 1000));
+      setCurrentTime(new Date());
     }, 1000);
     return () => clearInterval(timer);
   }, []);
