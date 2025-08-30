@@ -5,7 +5,7 @@
     "description": "Filtrar contenido por fechas recientes. daysFromToday define cuántos días hacia atrás mostrar desde la fecha actual o simulada"
   },
   "simulatedDate": {
-    "enabled": true,
+    "enabled": false,
     "date": "30/08/2025",
     "time": "20:30:00",
     "description": "Cuando enabled es true, simula que estamos en esta fecha y hora. Cuando es false, usa fecha y hora real"
