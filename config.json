@@ -1,7 +1,7 @@
 {
   "dateFiltering": {
     "enabled": true,
-    "daysFromToday": 30,
+    "daysFromToday": 90,
     "description": "Filtrar contenido por fechas recientes. daysFromToday define cuántos días hacia atrás mostrar desde la fecha actual o simulada"
   },
   "simulatedDate": {
