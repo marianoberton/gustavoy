@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Banner from "@/components/Banner";
 import { getRecentItems } from "@/lib/dateUtils";
 import config from "../../config.json";
@@ -28,7 +29,7 @@ export default function ArticulosPage() {
       .then((data) => {
         setArticles(data);
         // Filtrar artículos recientes según configuración
-        const recentArticles = getRecentItems(data);
+        const recentArticles = getRecentItems(data) as Article[];
         setDisplayedArticles(recentArticles);
       })
       .catch((error) => console.error("Error cargando los artículos:", error));
@@ -55,9 +56,11 @@ export default function ArticulosPage() {
               key={article.id}
               className="bg-white border rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
-              <img
+              <Image
                 src={article.image.src}
                 alt={article.image.alt}
+                width={400}
+                height={192}
                 className="w-full h-48 object-cover"
               />
               <div className="p-4">

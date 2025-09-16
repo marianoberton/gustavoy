@@ -28,7 +28,7 @@ export function getCurrentDate(): Date {
     const elapsedTime = Date.now() - simulationStartTime;
     
     // Retornar la fecha simulada más el tiempo transcurrido
-    return new Date(simulationBaseTime + elapsedTime);
+    return new Date(simulationBaseTime! + elapsedTime);
   }
   
   // Resetear variables de simulación si no está habilitada

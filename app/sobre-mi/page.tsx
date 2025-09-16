@@ -1,11 +1,15 @@
+import Image from 'next/image';
+
 export default function AboutPage() {
     return (
       <section className="container mx-auto px-4 py-16">
         <div className="flex flex-col md:flex-row items-center gap-8">
           <div className="w-full md:w-1/3">
-            <img
+            <Image
               src="/yarroch.jpg"
               alt="Gustavo Yarroch"
+              width={400}
+              height={400}
               className="rounded-lg shadow-lg w-full"
             />
           </div>

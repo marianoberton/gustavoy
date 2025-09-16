@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { getRecentItems } from "@/lib/dateUtils";
 import config from "../../config.json";
 
 type Video = {
+  id: number;
   title: string;
   url: string;
-  thumbnail: string;
+  thumbnail?: string | null;
   upload_date_formatted?: string;
 };
 
@@ -40,9 +42,11 @@ const VideoCard = ({ video }: { video: Video }) => {
           ></iframe>
         ) : (
           <div className="cursor-pointer" onClick={() => setPlay(true)}>
-            <img
+            <Image
               src={thumbnailUrl}
               alt={video.title}
+              width={640}
+              height={360}
               className="absolute top-0 left-0 w-full h-full object-cover"
               loading="lazy"
             />
