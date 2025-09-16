@@ -1,5 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { getRecentItems } from "@/lib/dateUtils";
+import config from "../config.json";
+
 type Article = {
   id: number;
   title: string;
@@ -22,15 +26,20 @@ function getAbsoluteUrl(url: string): string {
 }
 
 export default function ArticulosSinWP({ articles }: { articles: Article[] }) {
-  // Tomar solo los 6 primeros artículos (asumiendo que articles ya viene en el orden deseado)
-  const newestArticles = articles.slice(0, 6);
+  const [displayedArticles, setDisplayedArticles] = useState<Article[]>([]);
+
+  useEffect(() => {
+    // Filtrar artículos recientes según configuración
+    const recentArticles = getRecentItems(articles, config.content.articles.homeMaxItems);
+    setDisplayedArticles(recentArticles);
+  }, [articles]);
 
   return (
     <section className="container mx-auto px-4 py-8">
       <h2 className="text-3xl font-bold mb-8 text-gray-800">Últimos Artículos</h2>
-      {newestArticles.length > 0 ? (
+      {displayedArticles.length > 0 ? (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {newestArticles.map((article) => {
+          {displayedArticles.map((article) => {
             const absoluteImg = getAbsoluteUrl(article.image.src);
             const absoluteLink = getAbsoluteUrl(article.url);
 

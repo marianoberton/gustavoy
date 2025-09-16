@@ -4,22 +4,31 @@ import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { FiCalendar, FiClock } from "react-icons/fi";
 import Link from "next/link";
+import { getCurrentDate } from "@/lib/dateUtils";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentTime, setCurrentTime] = useState<Date>(new Date());
+  const [currentTime, setCurrentTime] = useState<Date>(getCurrentDate());
+  const [isClient, setIsClient] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
-  // Actualizar el reloj cada segundo con la fecha actual
+  // Marcar cuando estamos en el cliente para evitar errores de hidratación
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Actualizar el reloj cada segundo usando la fecha configurada como base
+  useEffect(() => {
+    if (!isClient) return;
+    
     const timer = setInterval(() => {
-      setCurrentTime(new Date());
+      setCurrentTime(getCurrentDate());
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isClient]);
 
   // Formatear la hora en formato de 24 horas (Argentina)
   const formattedTime = currentTime.toLocaleTimeString('es-AR', {
@@ -48,11 +57,13 @@ const Navbar = () => {
       <div className="flex flex-col">
         <div className="flex items-center text-emerald-400 font-mono text-base font-medium">
           <FiClock className="mr-1" />
-          <span>{formattedTime}</span>
+          <span suppressHydrationWarning>{isClient ? formattedTime : "00:00:00"}</span>
         </div>
         <div className="flex items-center text-gray-400 text-xs mt-1">
           <FiCalendar className="mr-1 text-gray-500" />
-          <span className="tracking-tight">{capitalizedDate}</span>
+          <span className="tracking-tight" suppressHydrationWarning>
+            {isClient ? capitalizedDate : "Cargando..."}
+          </span>
         </div>
       </div>
     </div>

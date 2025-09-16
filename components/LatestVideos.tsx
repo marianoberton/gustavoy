@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import { getRecentItems } from "@/lib/dateUtils";
+import config from "../config.json";
 
-export type Video = {
-  id: number;
+type Video = {
   title: string;
   url: string;
-  thumbnail?: string | null;
+  thumbnail: string;
+  upload_date_formatted?: string;
 };
 
 // Helper function para extraer el ID del video de la URL de YouTube
@@ -59,6 +61,11 @@ const VideoCard = ({ video }: { video: Video }) => {
         <h3 className="text-lg font-semibold text-gray-800 mb-2">
           {video.title}
         </h3>
+        {video.upload_date_formatted && (
+          <p className="text-sm text-gray-500 mb-2">
+            {video.upload_date_formatted}
+          </p>
+        )}
         <a
           href={video.url}
           target="_blank"
@@ -73,8 +80,18 @@ const VideoCard = ({ video }: { video: Video }) => {
 };
 
 export default function LatestVideos({ videos }: { videos: Video[] }) {
-  // Se toman solo los 6 videos más recientes (suponiendo que el array ya está ordenado de más reciente a menos)
-  const latestVideos = videos.slice(0, 6);
+  const [displayedVideos, setDisplayedVideos] = useState<Video[]>([]);
+
+  useEffect(() => {
+    // Filtrar y mostrar videos recientes según configuración
+    const recentVideos = getRecentItems(videos, config.content.videos.homeMaxItems);
+    console.log('Videos filtrados por fecha:', recentVideos.length);
+    console.log('Primeros 3 videos:', recentVideos.slice(0, 3).map(v => ({ fecha: v.upload_date_formatted, titulo: v.title.substring(0, 30) })));
+    setDisplayedVideos(recentVideos);
+  }, [videos]);
+
+  // Se toman solo los videos filtrados (ya limitados por getRecentItems)
+  const latestVideos = displayedVideos;
 
   return (
     <section className="container mx-auto px-4 py-16">

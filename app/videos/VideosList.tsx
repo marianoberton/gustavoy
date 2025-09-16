@@ -1,7 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
-import type { Video } from "./page";
+import { useState, useEffect } from "react";
+import { getRecentItems } from "@/lib/dateUtils";
+import config from "../../config.json";
+
+type Video = {
+  title: string;
+  url: string;
+  thumbnail: string;
+  upload_date_formatted?: string;
+};
 
 // Helper para extraer el ID del video de la URL de YouTube
 function getYouTubeID(url: string): string {
@@ -55,6 +63,11 @@ const VideoCard = ({ video }: { video: Video }) => {
         <h3 className="text-lg font-semibold text-gray-800 mb-2">
           {video.title}
         </h3>
+        {video.upload_date_formatted && (
+          <p className="text-sm text-gray-500 mb-2">
+            {video.upload_date_formatted}
+          </p>
+        )}
         <a
           href={video.url}
           target="_blank"
@@ -69,9 +82,15 @@ const VideoCard = ({ video }: { video: Video }) => {
 };
 
 export default function VideosList({ videos }: { videos: Video[] }) {
-  // Mostrar inicialmente 9 videos; se agregan de 9 en 9
-  const [visibleCount, setVisibleCount] = useState(9);
-  const visibleVideos = videos.slice(0, visibleCount);
+  const [displayedVideos, setDisplayedVideos] = useState<Video[]>([]);
+  const [visibleCount, setVisibleCount] = useState(config.content.videos.pageMaxItems);
+
+  useEffect(() => {
+    // Filtrar videos recientes según configuración
+    const recentVideos = getRecentItems(videos);
+    setDisplayedVideos(recentVideos);
+  }, [videos]);
+  const visibleVideos = displayedVideos.slice(0, visibleCount);
 
   const handleShowMore = () => {
     setVisibleCount((prev) => prev + 9);
@@ -84,7 +103,7 @@ export default function VideosList({ videos }: { videos: Video[] }) {
           <VideoCard key={video.id} video={video} />
         ))}
       </div>
-      {visibleCount < videos.length && (
+      {visibleCount < displayedVideos.length && (
         <div className="flex justify-center mt-6">
           <button
             onClick={handleShowMore}

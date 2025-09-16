@@ -14,6 +14,7 @@ export type Video = {
   title: string;
   url: string;
   thumbnail?: string | null;
+  upload_date_formatted?: string;
 };
 
 export default async function VideosPage() {

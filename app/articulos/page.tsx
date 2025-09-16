@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Banner from "@/components/Banner";
+import { getRecentItems } from "@/lib/dateUtils";
+import config from "../../config.json";
 
 type Article = {
   id: number;
@@ -17,12 +19,18 @@ type Article = {
 
 export default function ArticulosPage() {
   const [articles, setArticles] = useState<Article[]>([]);
-  const [visibleArticles, setVisibleArticles] = useState(6);
+  const [displayedArticles, setDisplayedArticles] = useState<Article[]>([]);
+  const [visibleArticles, setVisibleArticles] = useState(config.content.articles.pageMaxItems);
 
   useEffect(() => {
     fetch("/articles_with_ids.json")
       .then((response) => response.json())
-      .then((data) => setArticles(data)) // Ordenar los artículos más recientes primero
+      .then((data) => {
+        setArticles(data);
+        // Filtrar artículos recientes según configuración
+        const recentArticles = getRecentItems(data);
+        setDisplayedArticles(recentArticles);
+      })
       .catch((error) => console.error("Error cargando los artículos:", error));
   }, []);
 
@@ -42,7 +50,7 @@ export default function ArticulosPage() {
           </div>
         </header>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {articles.slice(0, visibleArticles).map((article) => (
+          {displayedArticles.slice(0, visibleArticles).map((article) => (
             <div
               key={article.id}
               className="bg-white border rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
@@ -78,7 +86,7 @@ export default function ArticulosPage() {
         </div>
 
         {/* Botón "Cargar más" */}
-        {visibleArticles < articles.length && (
+        {visibleArticles < displayedArticles.length && (
           <div className="mt-8 text-center">
             <button
               onClick={handleLoadMore}

@@ -1,0 +1,25 @@
+{
+  "dateFiltering": {
+    "enabled": true,
+    "daysFromToday": 30,
+    "description": "Filtrar contenido por fechas recientes. daysFromToday define cuántos días hacia atrás mostrar desde la fecha actual o simulada"
+  },
+  "simulatedDate": {
+    "enabled": true,
+    "date": "30/08/2025",
+    "time": "20:30:00",
+    "description": "Cuando enabled es true, simula que estamos en esta fecha y hora. Cuando es false, usa fecha y hora real"
+  },
+  "content": {
+    "videos": {
+      "homeMaxItems": 6,
+      "pageMaxItems": 12,
+      "description": "Cantidad máxima de videos a mostrar en home y página de videos"
+    },
+    "articles": {
+      "homeMaxItems": 4,
+      "pageMaxItems": 10,
+      "description": "Cantidad máxima de artículos a mostrar en home y página de artículos"
+    }
+  }
+}
