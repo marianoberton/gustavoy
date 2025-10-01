@@ -8,7 +8,14 @@ def scrape_infobae_articles():
     
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        context = browser.new_context()
+        # Configurar contexto con idioma español e ignorar errores SSL
+        context = browser.new_context(
+            locale='es-AR',  # Español de Argentina
+            extra_http_headers={
+                'Accept-Language': 'es-AR,es;q=0.9,en;q=0.8'
+            },
+            ignore_https_errors=True  # Ignorar errores de certificado SSL
+        )
         page = context.new_page()
         
         # Navegar a la página con un timeout mayor y esperar hasta que el DOM esté cargado

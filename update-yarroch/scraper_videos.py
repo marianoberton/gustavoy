@@ -21,6 +21,18 @@ def get_individual_video_info(video_id):
         'ignoreerrors': True,
         'socket_timeout': 30,
         'retries': 2,
+        # Configuración para idioma español
+        'writesubtitles': False,
+        'writeautomaticsub': False,
+        'subtitleslangs': ['es', 'es-ES', 'es-AR'],
+        'geo_bypass': True,
+        'geo_bypass_country': 'AR',  # Argentina
+        'extractor_args': {
+            'youtube': {
+                'lang': ['es', 'es-ES', 'es-AR'],
+                'player_client': ['android', 'web']
+            }
+        }
     }
     
     try:
@@ -41,7 +53,7 @@ def get_individual_video_info(video_id):
 
 def get_channel_videos_simple(url, max_videos=None):
     """Versión simplificada usando extract_flat para evitar problemas con YouTube"""
-    # Configuración más simple y robusta
+    # Configuración más simple y robusta con idioma español
     ydl_opts = {
         'extract_flat': True,  # Solo extraer metadatos básicos
         'quiet': False,  # Mostrar progreso
@@ -50,6 +62,18 @@ def get_channel_videos_simple(url, max_videos=None):
         'ignoreerrors': True,
         'socket_timeout': 60,
         'retries': 5,
+        # Configuración para idioma español
+        'writesubtitles': False,
+        'writeautomaticsub': False,
+        'subtitleslangs': ['es', 'es-ES', 'es-AR'],
+        'geo_bypass': True,
+        'geo_bypass_country': 'AR',  # Argentina
+        'extractor_args': {
+            'youtube': {
+                'lang': ['es', 'es-ES', 'es-AR'],
+                'player_client': ['android', 'web']
+            }
+        }
     }
     
     # Solo agregar playlistend si max_videos está especificado
@@ -124,18 +148,18 @@ def get_channel_videos_detailed(url, max_videos=None):
         'skip_download': True,
         'writesubtitles': False,
         'writeautomaticsub': False,
-        'geo_bypass': True,
         'ignoreerrors': True,
         'socket_timeout': 30,
         'retries': 3,
+        # Configuración para idioma español
+        'subtitleslangs': ['es', 'es-ES', 'es-AR'],
+        'geo_bypass': True,
+        'geo_bypass_country': 'AR',  # Argentina
         'extractor_args': {
             'youtube': {
-                'lang': ['es', 'es-ES'],
-                'skip': ['hls', 'dash']
+                'lang': ['es', 'es-ES', 'es-AR'],
+                'player_client': ['android', 'web']
             }
-        },
-        'http_headers': {
-            'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8'
         }
     }
     
