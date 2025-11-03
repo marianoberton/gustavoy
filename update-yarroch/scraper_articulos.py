@@ -5,6 +5,8 @@ import json
 def scrape_infobae_articles():
     base_url = "https://www.infobae.com/autor/gustavo-yarroch/"
     articles = []
+    filtered_articles = []
+    filtered_out_count = 0
     
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -38,10 +40,12 @@ def scrape_infobae_articles():
                 print("Error al hacer click en 'VER MÁS':", e)
                 break
         
-        # Obtener todos los artículos de la lista
+        # Obtener todos los artículos de la lista (tarjetas del feed)
+        # Nota: En algunas páginas Infobae inserta módulos con tarjetas de otros autores.
+        # Por eso luego verificamos el autor visitando cada artículo y filtrando por "Gustavo Yarroch".
         article_elements = page.query_selector_all("a.feed-list-card")
         print(f"Se encontraron {len(article_elements)} artículos.")
-        
+
         for art in article_elements:
             try:
                 # Extraer URL (se concatena con la URL base si es relativa)
@@ -72,26 +76,73 @@ def scrape_infobae_articles():
                 else:
                     fecha = ""
                 
-                articles.append({
-                    "title": title,
-                    "description": description,
-                    "url": url_article,
-                    "image": {
-                        "src": image_src,
-                        "alt": image_alt
-                    },
-                    "fecha": fecha  # Campo fecha en formato DD/MM/AAAA
-                })
+                # Verificar el autor accediendo a la página del artículo
+                author_name = None
+                try:
+                    article_page = context.new_page()
+                    article_page.goto(url_article, timeout=60000, wait_until="domcontentloaded")
+
+                    # 1) Buscar meta author
+                    author_meta = article_page.query_selector('meta[name="author"]')
+                    if author_meta:
+                        author_name = author_meta.get_attribute('content')
+
+                    # 2) Si no está, intentar parsear JSON-LD
+                    if not author_name:
+                        ld_json_el = article_page.query_selector('script[type="application/ld+json"]')
+                        if ld_json_el:
+                            try:
+                                ld_text = ld_json_el.inner_text()
+                                ld_obj = json.loads(ld_text)
+                                # Puede ser objeto o lista; extraer "author"/"name"
+                                def extract_author(obj):
+                                    if isinstance(obj, dict):
+                                        a = obj.get('author')
+                                        if isinstance(a, dict):
+                                            return a.get('name')
+                                        if isinstance(a, list) and len(a) > 0 and isinstance(a[0], dict):
+                                            return a[0].get('name')
+                                    if isinstance(obj, list):
+                                        for item in obj:
+                                            name = extract_author(item)
+                                            if name:
+                                                return name
+                                    return None
+                                author_name = extract_author(ld_obj)
+                            except Exception:
+                                pass
+
+                    article_page.close()
+                except Exception as e:
+                    print(f"No se pudo verificar autor para: {url_article}. Error: {e}")
+
+                # Filtrar: incluir solo artículos cuyo autor sea Gustavo Yarroch
+                if author_name and 'yarroch' in author_name.lower():
+                    filtered_articles.append({
+                        "title": title,
+                        "description": description,
+                        "url": url_article,
+                        "image": {
+                            "src": image_src,
+                            "alt": image_alt
+                        },
+                        "fecha": fecha,
+                        "author": author_name
+                    })
+                else:
+                    filtered_out_count += 1
             except Exception as ex:
                 print("Error procesando un artículo:", ex)
                 
         browser.close()
     
-    # Asignar ID secuencial a cada artículo
-    for idx, art in enumerate(articles, start=1):
+    print(f"Artículos del autor: {len(filtered_articles)}; filtrados de otros autores: {filtered_out_count}")
+
+    # Asignar ID secuencial a cada artículo (solo los filtrados)
+    for idx, art in enumerate(filtered_articles, start=1):
         art["id"] = idx
-        
-    return articles
+    
+    return filtered_articles
 
 if __name__ == "__main__":
     articles_data = scrape_infobae_articles()
